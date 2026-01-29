@@ -1,0 +1,14 @@
+skills:
+  - name: inspect_noise_patch
+    description: >
+      直观检查生成的训练切片，以验证噪声水平和切片质量。
+      用于调试数据加载器 (Data Loader) 或检查小目标在切片中是否清晰可见。
+    python_file: patch_tool.py
+    function: preview_noisy_patch
+    arguments:
+      - name: image_dir
+        type: string
+        description: D:\毕设项目\data\train
+      - name: noise_level
+        type: float
+        description: 高斯噪声的标准差 Sigma (默认 25)
