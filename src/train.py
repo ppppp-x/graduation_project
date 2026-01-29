@@ -118,6 +118,7 @@ def main():
     parser.add_argument('--noise_sigma', type=float, default=25.0)
     parser.add_argument('--use_attention', action='store_true')
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--resume', type=str, default=None, help='Path to checkpoint to resume from')
     args = parser.parse_args()
     
     # 设置随机种子
@@ -155,7 +156,18 @@ def main():
     
     # 训练记录
     best_psnr = 0.0
+    start_epoch = 1
     history = {'train_loss': [], 'train_psnr': []}
+    
+    # 从 checkpoint 恢复
+    if args.resume:
+        print(f"Resuming from checkpoint: {args.resume}")
+        checkpoint = torch.load(args.resume, map_location=device)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        start_epoch = checkpoint['epoch'] + 1
+        best_psnr = checkpoint.get('psnr', 0.0)
+        print(f"Resumed from epoch {checkpoint['epoch']}, best PSNR: {best_psnr:.2f} dB")
     
     print(f"\n{'='*50}")
     print(f"Starting training: {args.exp_name}")
@@ -163,7 +175,7 @@ def main():
     
     start_time = time.time()
     
-    for epoch in range(1, args.epochs + 1):
+    for epoch in range(start_epoch, args.epochs + 1):
         train_loss, train_psnr = train_one_epoch(
             model, train_loader, optimizer, criterion, device, epoch
         )
