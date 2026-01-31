@@ -1,0 +1,30 @@
+[
+  {
+    "sigma": 15,
+    "noisy_psnr": 24.65,
+    "denoised_psnr": 33.66,
+    "ssim": 0.9153000116348267,
+    "improvement": 9.0
+  },
+  {
+    "sigma": 25,
+    "noisy_psnr": 20.24,
+    "denoised_psnr": 33.45,
+    "ssim": 0.8996000289916992,
+    "improvement": 13.21
+  },
+  {
+    "sigma": 35,
+    "noisy_psnr": 17.36,
+    "denoised_psnr": 27.55,
+    "ssim": 0.6035000085830688,
+    "improvement": 10.19
+  },
+  {
+    "sigma": 50,
+    "noisy_psnr": 14.45,
+    "denoised_psnr": 14.57,
+    "ssim": 0.09910000115633011,
+    "improvement": 0.12
+  }
+]
